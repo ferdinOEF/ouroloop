@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { MapContainer, TileLayer, Polygon, LayersControl } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 import { fallbackPlaces } from '@/lib/demo-data';
 import { Card, Badge } from '@/components/ui/primitives';
 import type { PlaceGeo } from '@/lib/types';

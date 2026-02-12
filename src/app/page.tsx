@@ -1,18 +1,35 @@
-import dynamic from 'next/dynamic';
-import { Hero } from '@/components/landing/hero';
+'use client';
+
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { GoaMap } from '@/components/map/goa-map';
 import { Section, Card, Badge, Button, Tabs, Stat } from '@/components/ui/primitives';
 import { stewardCards, reviewQueue } from '@/lib/demo-data';
-
-const GoaMap = dynamic(() => import('@/components/map/goa-map').then((m) => m.GoaMap), { ssr: false });
 
 export default function HomePage() {
   return (
     <main>
-      <Hero />
+      <section className="pattern-coast relative flex min-h-[90vh] items-center">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-16 lg:grid-cols-2">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <h1 className="text-5xl font-bold leading-tight">Coastal resilience that pays people fairly.</h1>
+            <p className="mt-5 text-lg text-brand-muted">A Goa pilot linking mangroves and khazans to verified stewardship and rapid support — built with research-grade mapping and clear proof.</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href="#goa-map"><Button>Explore the Goa Pilot Map</Button></Link>
+              <Link href="#final-cta" className="rounded-full border px-5 py-2">Request a Walkthrough</Link>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-2">{['People + Place Registry', 'Verified proof', 'Audit-ready reporting', 'Rapid support during disasters'].map(t => <Badge key={t}>{t}</Badge>)}</div>
+          </motion.div>
+          <div className="space-y-4">
+            <svg viewBox="0 0 480 280" className="w-full rounded-3xl border bg-white p-4"><path d="M10 90 C130 20 280 150 470 70" stroke="#056DB6" strokeWidth="4" fill="none"/><path d="M30 130 C150 70 260 210 450 120" stroke="#B4D4D1" strokeWidth="5" fill="none"/><path d="M60 210 C130 120 210 220 260 170 C300 130 340 250 430 160" stroke="#222826" strokeWidth="3" fill="none"/></svg>
+            <div className="grid gap-3 sm:grid-cols-3">{['Registry snapshot', 'Latest verified work', 'Payments delivered'].map((c) => <Card key={c}><p className="text-sm">{c}</p><p className="text-xl font-bold">Live</p></Card>)}</div>
+          </div>
+        </div>
+      </section>
 
       <Section title="People first stewardship" subtitle="Why it matters: households closest to coastal risk should be recognised, verified, and paid quickly. OuroLoop keeps their contributions visible from field evidence to payout logs.">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{stewardCards.map((s) => <Card key={s.id}><div className="flex justify-between"><h3 className="font-semibold">{s.name}</h3><Badge tone="success">Verified</Badge></div><p className="text-sm text-brand-muted">{s.role} · {s.place}</p><p className="mt-3 text-sm">Last action: {s.action}</p><p className="mt-2 font-bold">Total paid: ₹{s.paid.toLocaleString('en-IN')}</p></Card>)}</div>
-        <svg viewBox="0 0 640 140" className="mt-8 w-full"><circle cx="90" cy="70" r="38" fill="#B4D4D1" /><circle cx="320" cy="70" r="38" fill="#056DB6" /><circle cx="550" cy="70" r="38" fill="#60C977" /><path d="M130 70 L280 70 M360 70 L510 70" stroke="#222826" strokeWidth="4" /><text x="48" y="125" fill="#222826">Community</text><text x="268" y="125" fill="#222826">Stewardship</text><text x="528" y="125" fill="#222826">Support</text></svg>
+        <svg viewBox="0 0 640 140" className="mt-8 w-full"><circle cx="90" cy="70" r="38" fill="#B4D4D1"/><circle cx="320" cy="70" r="38" fill="#056DB6"/><circle cx="550" cy="70" r="38" fill="#60C977"/><path d="M130 70 L280 70 M360 70 L510 70" stroke="#222826" strokeWidth="4"/><text x="48" y="125" fill="#222826">Community</text><text x="268" y="125" fill="#222826">Stewardship</text><text x="528" y="125" fill="#222826">Support</text></svg>
       </Section>
 
       <Section id="goa-map" title="Goa map proof" subtitle="Exact boundaries for mangroves and khazans, linked to people, work verification, and payouts.">
@@ -20,7 +37,7 @@ export default function HomePage() {
       </Section>
 
       <Section title="How it works" subtitle="Register people and places, verify proof, deliver payments and support fairly.">
-        <div className="grid gap-4 md:grid-cols-4">{['Register people + places', 'Log proof', 'Checks', 'Payments'].map((step, i) => <Card key={step}><svg viewBox="0 0 48 48" className="h-10 w-10"><rect x="6" y="6" width="36" height="36" rx="8" fill={["#B4D4D1", "#056DB6", "#222826", "#60C977"][i]} /></svg><p className="mt-3 font-semibold">{step}</p></Card>)}</div>
+        <div className="grid gap-4 md:grid-cols-4">{['Register people + places','Log proof','Checks','Payments'].map((step, i) => <Card key={step}><svg viewBox="0 0 48 48" className="h-10 w-10"><rect x="6" y="6" width="36" height="36" rx="8" fill={["#B4D4D1", "#056DB6", "#222826", "#60C977"][i]} /></svg><p className="mt-3 font-semibold">{step}</p></Card>)}</div>
       </Section>
 
       <Section title="What gets paid for">
@@ -46,6 +63,7 @@ export default function HomePage() {
         </div>
         <Card className="mt-4"><p>Who benefits: stewards, coastal households, local governance, and funders requiring credible climate outcomes.</p><p className="mt-3"><strong>Roadmap:</strong> Pilot in priority clusters → Expand with additional programmes → Scale to statewide resilience finance rails.</p></Card>
       </Section>
+
 
       <Section title="DPI rails architecture" subtitle="A modular system with registry at the centre for compliance, verification, payments, and reporting.">
         <Card><img src="/system-diagram.svg" alt="OuroLoop registry system diagram" className="w-full" /></Card>
