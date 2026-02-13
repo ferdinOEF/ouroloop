@@ -4,8 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  url      = env("psql 'postgresql://neondb_owner:npg_KgAehcr0F6ZN@ep-silent-sunset-aijx9pel-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'")
 }
 
 enum Role { STEWARD VERIFIER ADMIN FUNDER }
