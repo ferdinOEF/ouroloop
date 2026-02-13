@@ -1,0 +1,9 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 320'>
+<rect width='800' height='320' fill='#E9F2F1'/>
+<rect x='300' y='110' width='200' height='100' rx='12' fill='#056DB6'/><text x='340' y='165' fill='white' font-size='20'>Registry</text>
+<rect x='70' y='40' width='170' height='70' rx='12' fill='#B4D4D1'/><text x='100' y='82' fill='#222826'>People</text>
+<rect x='70' y='210' width='170' height='70' rx='12' fill='#B4D4D1'/><text x='105' y='252' fill='#222826'>Places</text>
+<rect x='560' y='40' width='170' height='70' rx='12' fill='#60C977'/><text x='600' y='82' fill='#222826'>Verification</text>
+<rect x='560' y='210' width='170' height='70' rx='12' fill='#60C977'/><text x='610' y='252' fill='#222826'>Payments</text>
+<path d='M240 75 L300 140 M240 245 L300 180 M500 140 L560 75 M500 180 L560 245' stroke='#222826' stroke-width='3'/>
+</svg>
