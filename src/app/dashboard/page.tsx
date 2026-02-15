@@ -1,16 +1,6 @@
 import Link from 'next/link';
 import { Card, Section, Stat } from '@/components/ui/primitives';
 
-const dashboardLinks = [
-  { href: '/people', label: 'people' },
-  { href: '/places', label: 'places' },
-  { href: '/programmes', label: 'programmes' },
-  { href: '/submissions', label: 'submissions' },
-  { href: '/payments', label: 'payments' },
-  { href: '/events', label: 'events' },
-  { href: '/reports', label: 'reports' }
-] as const;
-
 export default function DashboardPage() {
   return (
     <Section title="Role dashboards" subtitle="Steward, verifier, admin, and funder views run on the same people-place registry and audit rails.">
@@ -21,7 +11,7 @@ export default function DashboardPage() {
         <Card><h3 className="font-semibold">Funder</h3><Stat label="Audit exports" value="6" /></Card>
       </div>
       <div className="mt-6 flex flex-wrap gap-3 text-sm underline">
-        {dashboardLinks.map((link) => <Link key={link.href} href={link.href}>{link.label}</Link>)}
+        {['people','places','programmes','submissions','payments','events','reports'].map(p => <Link key={p} href={`/${p}`}>{p}</Link>)}
       </div>
     </Section>
   );

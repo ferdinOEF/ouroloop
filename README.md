@@ -63,14 +63,3 @@ pnpm test
 
 ## Docker
 `docker-compose.yml` provides local Postgres 16 on `localhost:5432`.
-
-
-## Pre-deploy verification checklist
-Before triggering a Vercel redeploy, run:
-
-```bash
-pnpm install --frozen-lockfile
-pnpm ci:check
-```
-
-If Vercel still reports an older lint error, clear build cache and redeploy the latest commit SHA.
