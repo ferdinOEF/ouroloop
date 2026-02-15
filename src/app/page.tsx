@@ -2,8 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
-import { GoaMapLazy } from '@/components/map/goa-map-lazy';
+import { GoaMap } from '@/components/map/goa-map';
 import { Section, Card, Badge, Button, Tabs, Stat } from '@/components/ui/primitives';
 import { stewardCards, reviewQueue } from '@/lib/demo-data';
 
@@ -34,7 +33,7 @@ export default function HomePage() {
       </Section>
 
       <Section id="goa-map" title="Goa map proof" subtitle="Exact boundaries for mangroves and khazans, linked to people, work verification, and payouts.">
-        <GoaMapLazy />
+        <GoaMap />
       </Section>
 
       <Section title="How it works" subtitle="Register people and places, verify proof, deliver payments and support fairly.">
@@ -67,7 +66,7 @@ export default function HomePage() {
 
 
       <Section title="DPI rails architecture" subtitle="A modular system with registry at the centre for compliance, verification, payments, and reporting.">
-        <Card><Image src="/system-diagram.svg" alt="OuroLoop registry system diagram" className="w-full" width={1200} height={500} /></Card>
+        <Card><img src="/system-diagram.svg" alt="OuroLoop registry system diagram" className="w-full" /></Card>
       </Section>
 
       <Section title="Founder credibility">

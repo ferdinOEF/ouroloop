@@ -3,165 +3,85 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("psql 'postgresql://neondb_owner:npg_KgAehcr0F6ZN@ep-silent-sunset-aijx9pel-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'")
 }
 
-enum Role {
-  STEWARD
-  VERIFIER
-  ADMIN
-  FUNDER
-}
-
-enum PlaceType {
-  MANGROVE
-  KHAZAN
-}
-
-enum ProgrammeType {
-  PES
-  FINANCE
-  DISASTER
-}
-
-enum SubmissionStatus {
-  PENDING
-  CHANGES_REQUESTED
-  APPROVED
-  REJECTED
-}
-
-enum EventTriggerType {
-  MANUAL
-  CSV_INDICATOR
-}
+enum Role { STEWARD VERIFIER ADMIN FUNDER }
+enum PlaceType { MANGROVE KHAZAN }
+enum ProgrammeType { PES FINANCE DISASTER }
+enum SubmissionStatus { PENDING CHANGES_REQUESTED APPROVED REJECTED }
+enum EventTriggerType { MANUAL CSV_INDICATOR }
 
 model User {
-  id            String         @id @default(cuid())
-  email         String         @unique
-  passwordHash  String
-  name          String
-  role          Role
+  id String @id @default(cuid())
+  email String @unique
+  passwordHash String
+  name String
+  role Role
   personProfile PersonProfile?
-  createdAt     DateTime       @default(now())
+  createdAt DateTime @default(now())
 }
 
 model PersonProfile {
-  id           String       @id @default(cuid())
-  userId       String       @unique
-  consentGiven Boolean      @default(false)
-  consentDate  DateTime?
-  status       String       @default("ACTIVE")
-  auditTrail   Json
-  user         User         @relation(fields: [userId], references: [id])
-  assignments  Assignment[]
+  id String @id @default(cuid())
+  userId String @unique
+  consentGiven Boolean @default(false)
+  consentDate DateTime?
+  status String @default("ACTIVE")
+  auditTrail Json
+  user User @relation(fields:[userId], references:[id])
+  assignments Assignment[]
 }
 
 model Place {
-  id          String       @id @default(cuid())
-  name        String
-  type        PlaceType
-  geometry    Json
-  metadata    Json
+  id String @id @default(cuid())
+  name String
+  type PlaceType
+  geometry Json
+  metadata Json
   assignments Assignment[]
 }
 
 model Assignment {
-  id              String        @id @default(cuid())
+  id String @id @default(cuid())
   personProfileId String
-  placeId         String
-  eligibility     Json
-  personProfile   PersonProfile @relation(fields: [personProfileId], references: [id])
-  place           Place         @relation(fields: [placeId], references: [id])
+  placeId String
+  eligibility Json
+  personProfile PersonProfile @relation(fields:[personProfileId], references:[id])
+  place Place @relation(fields:[placeId], references:[id])
 }
 
-model ActivityType {
-  id          String @id @default(cuid())
-  name        String
-  description String
-}
+model ActivityType { id String @id @default(cuid()) name String description String }
 
 model Programme {
-  id         String        @id @default(cuid())
-  name       String
-  type       ProgrammeType
+  id String @id @default(cuid())
+  name String
+  type ProgrammeType
   funderName String
-  startDate  DateTime
-  endDate    DateTime
-  tags       String[]
+  startDate DateTime
+  endDate DateTime
+  tags String[]
   ruleConfig Json
 }
 
-model ProgrammePlace {
-  id          String @id @default(cuid())
-  programmeId String
-  placeId     String
-}
-
-model ProgrammeActivity {
-  id             String @id @default(cuid())
-  programmeId    String
-  activityTypeId String
-}
+model ProgrammePlace { id String @id @default(cuid()) programmeId String placeId String }
+model ProgrammeActivity { id String @id @default(cuid()) programmeId String activityTypeId String }
 
 model Submission {
-  id              String           @id @default(cuid())
+  id String @id @default(cuid())
   personProfileId String
-  placeId         String
-  activity        String
-  date            DateTime
-  notes           String
-  location        Json
-  status          SubmissionStatus @default(PENDING)
+  placeId String
+  activity String
+  date DateTime
+  notes String
+  location Json
+  status SubmissionStatus @default(PENDING)
 }
 
-model SubmissionMedia {
-  id           String @id @default(cuid())
-  submissionId String
-  path         String
-}
-
-model ReviewLog {
-  id           String           @id @default(cuid())
-  submissionId String
-  verifierId   String
-  decision     SubmissionStatus
-  note         String
-  createdAt    DateTime         @default(now())
-}
-
-model Payment {
-  id              String   @id @default(cuid())
-  programmeId     String
-  personProfileId String
-  amount          Decimal  @db.Decimal(12, 2)
-  submissionIds   String[]
-  eventId         String?
-  createdAt       DateTime @default(now())
-}
-
-model Event {
-  id               String           @id @default(cuid())
-  programmeId      String
-  triggerType      EventTriggerType
-  affectedPlaces   Json
-  eligibleSnapshot Json
-  createdAt        DateTime         @default(now())
-}
-
-model Lead {
-  id        String   @id @default(cuid())
-  name      String
-  email     String
-  message   String?
-  createdAt DateTime @default(now())
-}
-
-model AuditExport {
-  id        String   @id @default(cuid())
-  params    Json
-  filePath  String
-  createdAt DateTime @default(now())
-}
+model SubmissionMedia { id String @id @default(cuid()) submissionId String path String }
+model ReviewLog { id String @id @default(cuid()) submissionId String verifierId String decision SubmissionStatus note String createdAt DateTime @default(now()) }
+model Payment { id String @id @default(cuid()) programmeId String personProfileId String amount Decimal @db.Decimal(12,2) submissionIds String[] eventId String? createdAt DateTime @default(now()) }
+model Event { id String @id @default(cuid()) programmeId String triggerType EventTriggerType affectedPlaces Json eligibleSnapshot Json createdAt DateTime @default(now()) }
+model Lead { id String @id @default(cuid()) name String email String message String? createdAt DateTime @default(now()) }
+model AuditExport { id String @id @default(cuid()) params Json filePath String createdAt DateTime @default(now()) }
