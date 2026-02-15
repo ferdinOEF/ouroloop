@@ -7,7 +7,9 @@ import { fallbackPlaces } from '@/lib/demo-data';
 import { Card, Badge } from '@/components/ui/primitives';
 import type { PlaceGeo } from '@/lib/types';
 
-function toPlaces(features: any[], type: 'MANGROVE' | 'KHAZAN'): PlaceGeo[] {
+type GeoFeature = { properties?: { name?: string }; geometry: PlaceGeo['geometry'] };
+
+function toPlaces(features: GeoFeature[], type: 'MANGROVE' | 'KHAZAN'): PlaceGeo[] {
   return features.map((f, i) => ({
     id: `${type}-${i}`,
     name: f.properties?.name ?? `${type} ${i + 1}`,
