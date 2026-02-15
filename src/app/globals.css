@@ -13,13 +13,16 @@
   --border: #9dbfbc;
 }
 
-html, body {
-  background: linear-gradient(180deg, #E9F2F1 0%, #f4f8f8 45%, #E9F2F1 100%);
+html,
+body {
+  background: linear-gradient(180deg, #e9f2f1 0%, #f4f8f8 45%, #e9f2f1 100%);
   color: var(--text);
 }
 
 body {
   font-feature-settings: 'ss01' on, 'cv01' on;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 a {
@@ -27,7 +30,9 @@ a {
   text-decoration: none;
 }
 
-* { border-color: color-mix(in srgb, var(--surface) 50%, transparent); }
+* {
+  border-color: color-mix(in srgb, var(--surface) 50%, transparent);
+}
 
 :focus-visible {
   outline: 3px solid var(--primary);
@@ -41,6 +46,9 @@ a {
     linear-gradient(145deg, rgba(180, 212, 209, 0.35), rgba(233, 242, 241, 0.95));
 }
 
-.section-divider {
-  border-top: 1px solid rgba(180, 212, 209, 0.5);
+h1,
+h2,
+h3 {
+  letter-spacing: -0.02em;
+  color: var(--text);
 }

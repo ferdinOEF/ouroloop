@@ -2,22 +2,23 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Container, Button } from '@/components/ui/primitives';
+import { ButtonLink, Container } from '@/components/ui/primitives';
 
 const navLinks = [
-  { href: '/public-map', label: 'Map' },
-  { href: '/contact', label: 'Contact' },
-  { href: '/dashboard', label: 'Platform' }
+  { href: '/platform', label: 'Platform Demo' },
+  { href: '/#use-cases', label: 'Use Cases' },
+  { href: '/#about', label: 'About' },
+  { href: '/contact', label: 'Contact' }
 ] as const;
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-brand-surface/40 bg-brand-bg/85 backdrop-blur-lg">
+    <header className="sticky top-0 z-50 border-b border-brand-surface/35 bg-brand-bg/80 backdrop-blur-xl">
       <Container className="py-3">
         <div className="flex items-center justify-between gap-4">
-          <Link href="/" className="text-[1.35rem] font-semibold tracking-tight">OuroLoop</Link>
+          <Link href="/" className="text-[1.35rem] font-semibold tracking-tight text-brand-text">OuroLoop</Link>
 
           <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
             {navLinks.map((link) => (
@@ -25,21 +26,21 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-3 md:flex">
-            <Link href="#final-cta"><Button className="px-4 py-2">Request walkthrough</Button></Link>
+          <div className="hidden md:block">
+            <ButtonLink href="/contact">Request a walkthrough</ButtonLink>
           </div>
 
-          <button className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-surface/70 bg-white/70 md:hidden" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">
+          <button className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-surface/65 bg-white/70 md:hidden" onClick={() => setOpen((v) => !v)} aria-label="Toggle menu">
             <span className="text-lg">☰</span>
           </button>
         </div>
 
         {open && (
-          <div className="mt-3 grid gap-2 rounded-2xl bg-white/85 p-3 shadow-[0_10px_24px_rgba(34,40,38,0.08)] md:hidden">
+          <div className="mt-3 grid gap-2 rounded-2xl bg-white/85 p-3 shadow-[0_12px_30px_rgba(34,40,38,0.08)] md:hidden">
             {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="rounded-lg px-3 py-2 text-sm text-brand-text hover:bg-brand-surface/35">{link.label}</Link>
+              <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="rounded-lg px-3 py-2 text-sm text-brand-text hover:bg-brand-surface/35">{link.label}</Link>
             ))}
-            <Link href="#final-cta" className="mt-1"><Button className="w-full">Request walkthrough</Button></Link>
+            <ButtonLink href="/contact" className="w-full justify-center">Request a walkthrough</ButtonLink>
           </div>
         )}
       </Container>
