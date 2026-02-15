@@ -43,7 +43,7 @@ export default function HomePage() {
                 </div>
               </Card>
 
-              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              <div className="mt-4 grid gap-3 sm:grid-cols-3 lg:-mt-10 lg:px-4">
                 <Card>
                   <p className="text-xs font-semibold uppercase tracking-[0.08em] text-brand-muted">Registry snapshot</p>
                   <div className="mt-3 space-y-1 text-sm">
@@ -73,7 +73,9 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <Section title="People first stewardship" subtitle="Households closest to coastal risk should be recognised quickly, verified fairly, and paid on time.">
+      <Section title="People first stewardship" subtitle="Households closest to coastal risk should be recognised quickly, verified fairly, and paid on time.
+      ">
+        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.08em] text-brand-primary">Why it matters</p>
         <motion.div {...fadeIn} className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {stewardCards.map((s, idx) => (
             <Card key={s.id}>
@@ -114,7 +116,7 @@ export default function HomePage() {
             ['Register', 'People and places are registered with consent and eligibility.'],
             ['Proof', 'Stewards submit photos, notes, activity date and location.'],
             ['Checks', 'Verifiers approve, request changes, or reject with decision logs.'],
-            ['Payments', 'Approved work and event triggers translate into payment records.']
+            ['Payments + audit', 'Approved work and event triggers translate into payment and export-ready records.']
           ].map(([title, text], i) => (
             <Card key={title} className="relative">
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-surface/55 text-sm font-semibold text-brand-primary">{i + 1}</span>
@@ -126,6 +128,7 @@ export default function HomePage() {
       </Section>
 
       <Section title="What gets paid for">
+        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.08em] text-brand-primary">One registry. Three payment modes.</p>
         <Tabs tabs={[
           { label: 'PES', content: <ul className="list-disc space-y-1 pl-4"><li>Stewardship that protects ecosystems.</li><li>Work that supports livelihoods.</li><li>Transparent links to place records.</li></ul> },
           { label: 'Climate finance', content: <ul className="list-disc space-y-1 pl-4"><li>Verified activities and outcomes.</li><li>Programme-level tracking by place.</li><li>Buyer-ready reporting.</li></ul> },
